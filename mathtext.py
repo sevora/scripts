@@ -53,10 +53,10 @@ class MathText:
         
         # Dictionary of strings obviously
         result = {
-            'given': self._fix('Given:'),
-            'unknown': self._fix('Unknown:') + '\n' + self._fix(f'{unknown}'),
-            'formula': self._fix('Formula:'),
-            'solution': self._fix('Solution:'),
+            'given': self._fix('"Given:"'),
+            'unknown': self._fix('"Unknown:"') + '\n' + self._fix(f'{unknown}'),
+            'formula': self._fix('"Formula:"'),
+            'solution': self._fix('"Solution:"'),
         }
         
         # The two other variables will be mutated a lot
