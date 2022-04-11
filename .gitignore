@@ -6,3 +6,5 @@ temp.py
 
 # Temporary directory
 temp
+
+*.class
