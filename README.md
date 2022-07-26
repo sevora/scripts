@@ -9,3 +9,4 @@ A collection of scripts written for personal use.
 ## Usage
 - `images-to-pdf.py` is used to convert a bunch of images in a directory to a PDF.
 - `mathtext.py` is used to generate [LibreOffice Equation Editor text](https://documentation.libreoffice.org/assets/Uploads/Documentation/en/MG7.0/MG70-MathGuide.pdf) with a complete set of given, unknown, formula, and solution parts.
+- `tree-recursive.py` uses the [Python Turtle](https://docs.python.org/3/library/turtle.html) graphics in order to draw a recursive tree.
