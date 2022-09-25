@@ -9,6 +9,15 @@ from os.path import isfile, join
 from pathlib import Path
 from PIL import Image
 
+@click.command()
+@click.option('--path', type=click.Path(exists=True, file_okay=False), required=True, help="Path of input directory.")
+@click.option('--mode', type=click.Choice(['individual', 'collection'], case_sensitive=False), default='individual', help="Mode of compilation.")
+def main(mode, path):
+    if mode == 'individual':
+        compile(path)
+    else:
+        use_collection_folder(path)
+
 # Compiles a single folder of images to a PDF
 def compile(directory):
     print(f'Compiling: {directory}')
@@ -35,8 +44,10 @@ def compile(directory):
     base_image.save(filename, 'PDF', resolution=100.00, save_all=True, append_images=images)
     print(f'Saved as: {filename}')
     
-    del base_image
-    del images
+    for image in images:
+        image.close()
+    
+    base_image.close()
     gc.collect()
 
 # Compiles multiple PDFs separated by a folders in a root directory
@@ -54,15 +65,6 @@ def use_collection_folder(directory):
             print(f'{index} - {title}')
         compile_index = int(input('Input index to compile: '))
         compile(join(directory, titles[compile_index]))
-
-@click.command()
-@click.option('--path', type=click.Path(exists=True, file_okay=False), required=True, help="Path of input directory.")
-@click.option('--mode', type=click.Choice(['individual', 'collection'], case_sensitive=False), default='individual', help="Mode of compilation.")
-def main(mode, path):
-    if mode == 'individual':
-        compile(path)
-    else:
-        use_collection_folder(path)
 
 if __name__ == '__main__':
     main()
