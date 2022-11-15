@@ -3,9 +3,10 @@
 # Written by Ralph Louis Gopez
 
 import gc
+import re
 import click
 from os import listdir
-from os.path import isfile, join
+from os.path import isfile, isdir, join
 from pathlib import Path
 from PIL import Image
 
@@ -25,7 +26,8 @@ def compile(directory):
     images = []
 
     paths = listdir(directory)
-    paths.sort()
+    index_only = lambda x: int(re.search(r'\d+', x).group())
+    paths.sort(key=index_only)
 
     for index, path in enumerate(paths):
         absolute_path = join(directory, path)
@@ -59,7 +61,9 @@ def use_collection_folder(directory):
 
     if compileAll:
         for title in titles:
-            compile(join(directory, title))
+            title_path = join(directory, title)
+            if isdir(title_path):
+                compile(join(directory, title))
     else:
         for index, title in enumerate(titles):
             print(f'{index} - {title}')
