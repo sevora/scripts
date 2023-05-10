@@ -25,7 +25,15 @@ def compile(directory):
     base_image = None
     images = []
 
-    paths = listdir(directory)
+    all_paths = listdir(directory)
+    paths = []
+
+    # accept only images
+    for path in all_paths:
+        for extension in [ '.png', '.jpg', '.jpeg' ]:
+            if path.lower().endswith(extension):
+                paths.append(path)
+
     index_only = lambda x: int(re.search(r'\d+', x).group())
     paths.sort(key=index_only)
 
